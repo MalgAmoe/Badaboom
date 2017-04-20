@@ -1,8 +1,13 @@
 var audioContext = new AudioContext()
 
-playKick(0, 0.5)
-playKick(1, 0.5)
-playKick(2, 0.5)
+var interval = setInterval(playKicks, 4000);
+
+function playKicks () {
+  playKick(0, 0.05)
+  playKick(1, 0.05)
+  playKick(2, 0.05)
+  playKick(3, 0.05)
+}
 
 function playKick (delay, duration) {
   var startTime = audioContext.currentTime + delay
@@ -20,8 +25,8 @@ function playKick (delay, duration) {
   oscillator.connect(amp)
   amp.gain.value = 0
   amp.gain.setTargetAtTime(1, startTime, 0.0001)
-  amp.gain.setTargetAtTime(0, startTime + 0.05, 0.2)
+  amp.gain.setTargetAtTime(0, endTime, 0.2)
 
   oscillator.start(startTime)
-  oscillator.stop(endTime + 1)
+  oscillator.stop(endTime + 2)
 }
