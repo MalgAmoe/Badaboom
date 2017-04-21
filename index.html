@@ -3,9 +3,89 @@
   <head>
     <meta charset="utf-8">
     <script src="index.js"></script>
+    <script src="https://cdn.rawgit.com/konvajs/konva/1.5.0/konva.min.js"></script>
     <title>Badaboom</title>
   </head>
   <body>
+    <div id="container"></div>
+    <script>
 
+        function updateXY(position) {
+          xyPosition.setX(position.x)
+          xyPosition.setY(position.y)
+          var value = (position.x - padX) / padWidth + ' ' + (position.y - padY) / padWidth
+          xyValue.setText(value)
+          layer.draw()
+        }
+
+        var stage = new Konva.Stage({
+          container: 'container',
+          width: window.innerWidth,
+          height: window.innerHeight
+        })
+
+        // add canvas element
+        var layer = new Konva.Layer()
+        stage.add(layer)
+
+        var padX = 3 * stage.getWidth() / 8
+        var padY = stage.getHeight() / 8
+        var padWidth = stage.getWidth() / 4
+
+        // create shapes
+        var xyPad = new Konva.Rect({
+          x: padX,
+          y: padY,
+          width: padWidth,
+          height: padWidth,
+          fill: '#00D2FF',
+          opacity: 0.8
+        })
+
+        var xyPosition = new Konva.Circle({
+          x: padX + padWidth / 2,
+          y: padY + padWidth / 2,
+          radius: padWidth / 20,
+          fill: 'black'
+        })
+
+        var xyValue = new Konva.Text({
+          x: 10,
+          y: 10,
+          fontFamily: 'Calibri',
+          fontSize: 24,
+          text: '',
+          fill: 'black'
+        })
+
+        layer.add(xyPosition)
+        layer.add(xyPad)
+        layer.add(xyValue)
+
+        layer.draw()
+
+        //xy logic
+        var clicking = false;
+
+        xyPad.on('mouseover', function() {
+          document.body.style.cursor = 'pointer'
+        })
+        xyPad.on('mouseout', function() {
+          document.body.style.cursor = 'default'
+        })
+        xyPad.on('mousedown', function() {
+          clicking = true
+          updateXY(stage.getPointerPosition())
+        })
+        xyPad.on('mouseup', function() {
+          clicking = false
+        })
+        xyPad.on('mousemove', function() {
+          if (clicking) {
+            updateXY(stage.getPointerPosition())
+          }
+        })
+
+    </script>
   </body>
 </html>
