@@ -4,16 +4,16 @@ var stage = new Konva.Stage({
   height: window.innerHeight
 })
 
-// add canvas element
 var layer = new Konva.Layer()
 stage.add(layer)
 
+//--------------------------variables
 var padX = 3 * stage.getWidth() / 8
 var padY = stage.getHeight() / 8
 var padWidth = stage.getWidth() / 4
 
-// create shapes
-var dummyXyPad = new Konva.Rect({
+//--------------------------- create shapes
+var xyBackground = new Konva.Rect({
   x: padX,
   y: padY,
   width: padWidth,
@@ -46,14 +46,14 @@ var xyValue = new Konva.Text({
   fill: 'white'
 })
 
-layer.add(dummyXyPad)
+layer.add(xyBackground)
 layer.add(xyPosition)
 layer.add(xyPad)
 layer.add(xyValue)
 
 layer.draw()
 
-//----------XY touch control
+//--------------------------XY touch control
 
 var clicking = false;
 
