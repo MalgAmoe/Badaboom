@@ -1,8 +1,19 @@
-var audioContext = new AudioContext()
+
 
 //------------------------global variables
-var tempo = 90
+var audioContext = new AudioContext()
+var isPlaying = false
+var startTime
+var tempo = 120
 var eventsScheduled = []
+var timerWorker = null
+
+var lookAheadTime = 25.0
+var scheduleAheadTime = 0.1
+
+var timerID = null
+var interval = 10
+
 
 //------------------------sequencer class
 function Sequencer(resolution, division) {
@@ -26,6 +37,10 @@ function Sequencer(resolution, division) {
   }
 
   seq.checkNextStep = function() {
+    return seq.nextNoteTime
+  }
+
+  seq.getNextStep = function() {
     //get values for next step
     var nextStep = ++seq.currentStep
     if (nextStep >= seq.division) {
@@ -42,15 +57,20 @@ function Sequencer(resolution, division) {
 
   seq.startSequencer = function() {
     seq.timeLag = (60.0 / tempo) * seq.resolution / seq.division
-    var kickData = seq.checkNextStep()
-    setTimeout(function(){playKick(kickData[0], 0.05, kickData[1])}, seq.timeLag * 0.5)
-    setInterval(seq.scheduleStep, seq.timeLag)
+    // var kickData = seq.checkNextStep()
+    // setTimeout(function(){
+    //   playKick(kickData[0], 0.05, kickData[1])
+    // }, seq.timeLag * 0.5)
+    // setInterval(seq.scheduleStep, seq.timeLag)
+    timerID = setInterval(scheduler, interval)
+  }
+
+  seq.changeTempo = function() {
+    seq.timeLag = (60.0 / tempo) * seq.resolution / seq.division
   }
 
   seq.scheduleStep = function() {
-    // for (var i = 0; i < 8; i++) {
-    // }
-    var kickData = seq.checkNextStep()
+    var kickData = seq.getNextStep()
     if (kickData[0] > 0) {
       playKick(kickData[0], 0.05, kickData[1])
     }
@@ -60,27 +80,49 @@ function Sequencer(resolution, division) {
 }
 
 //-------------------------sequencer instance
-var kickSequencer = Sequencer(4, 16)
+var kickSequencer = Sequencer(2, 16)
 kickSequencer.setStep(0, 1)
-kickSequencer.setStep(3, 0.5)
+// kickSequencer.setStep(3, 0.5)
 kickSequencer.setStep(4, 0.5)
-kickSequencer.setStep(6, 0.8)
+// kickSequencer.setStep(6, 0.8)
 kickSequencer.setStep(8, 0.5)
-kickSequencer.setStep(10, 1)
+// kickSequencer.setStep(10, 1)
 kickSequencer.setStep(12, 0.5)
 kickSequencer.startSequencer()
 
 //-------------------------event scheduling
-// var intervalCheck = setInterval(kickSequencer.checkNextStep, 500)
+function scheduler() {
+  var nextNoteTime = kickSequencer.checkNextStep()
 
-// var interval = setInterval(playKicks, 4000)
+  // kickSequencer.scheduleStep()
+
+  while(nextNoteTime < audioContext.currentTime + scheduleAheadTime) {
+    kickSequencer.scheduleStep()
+    nextNoteTime = kickSequencer.checkNextStep()
+  }
+}
+
+//-------------------------sequencer controls
+// function play() {
+//   isPlaying = !isPlaying
 //
-// function playKicks() {
-//   playKick(0, 0.05, 1)
-//   playKick(1, 0.05, 0.3)
-//   playKick(2, 0.05, 0.8)
-//   playKick(3, 0.05, 0.2)
+//   if (isPlaying) {
+//     // kickSequencer.nextNoteTime = audioContext.currentTime
+//     // kickSequencer.currentStep = 0
+//     kickSequencer.startSequencer()
+//
+//     return 'stop'
+//   } else {
+//
+//     return 'play'
+//   }
 // }
+
+//-------------------------init data and functionalities
+
+init () {
+
+}
 
 //-------------------------sound generation
 function playKick (delay, duration, velocity) {
