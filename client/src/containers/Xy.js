@@ -2,36 +2,60 @@ import  React, { Component } from 'react';
 
 const styles = {
   pad: {
+    position: 'relative',
     width: 300,
     height: 300,
-    backgroundColor: 'red'
+    borderRadius: 5,
+    backgroundColor: 'red',
+    opacity: 0.8
+  },
+  position: {
+    position: 'absolute',
+    width: 20,
+    height: 20,
+    margin: -10,
+    borderRadius:10,
+    backgroundColor: 'yellow',
+    opacity: 0.7,
+    pointerEvents: 'none'
   }
 }
 
 class XyPosition extends Component {
-
+  render() {
+    return (
+      <div style={Object.assign({}, styles.position, {top: this.props.top, left: this.props.left})}></div>
+    )
+  }
 }
 
 class XyPad extends Component {
   state = {
-    touched: false
+    touched: false,
+    x:0,
+    y:0,
+    left:0,
+    top:styles.pad.width
   }
 
-  logPosition(pos) {
-    console.log(`x:${pos.nativeEvent.offsetX/styles.pad.width}`
-      + ` y:${1 - pos.nativeEvent.offsetY/styles.pad.width}`);
+  changePosition(pos) {
+    this.setState({left:pos.nativeEvent.offsetX, top:pos.nativeEvent.offsetY})
+    this.setState({x:pos.nativeEvent.offsetX/styles.pad.width, y:1 - pos.nativeEvent.offsetY/styles.pad.width})
+    // console.log(`x:${this.state.x}`
+    //   + ` y:${this.state.y}`);
   }
 
   modifySound = (e) => {
     const type = e.type
     switch (type) {
       case 'mousedown':
-        this.logPosition(e)
+        this.changePosition(e)
         this.setState({touched: true})
         break
       case 'mousemove':
         if (this.state.touched) {
-          this.logPosition(e)
+          // console.log(e.nativeEvent);
+          this.changePosition(e)
         }
         break
       default:
@@ -46,6 +70,7 @@ class XyPad extends Component {
         onMouseUp={this.modifySound}
         onMouseLeave={this.modifySound}
         onMouseMove={this.modifySound}>
+        <XyPosition top={this.state.top} left={this.state.left}/>
       </div>
     )
   }
