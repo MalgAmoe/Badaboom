@@ -76,7 +76,8 @@ class App extends Component {
           sequencer={this.state.steps}
           addStep={this.addStep}
           startStop={this.startStop}
-          changeStepNumber={this.changeStepNumber}/>
+          changeStepNumber={this.changeStepNumber}
+          changeResolution={this.changeResolution}/>
       </div>
     );
   }

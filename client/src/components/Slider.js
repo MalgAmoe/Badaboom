@@ -19,7 +19,7 @@ class Slider extends Component{
 
   changeValue = (e) => {
     this.setState({value: e.target.value})
-    this.props.changeStepNumber(e.target.value)
+    this.props.change(e.target.value)
   }
 
   render() {
