@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import SequencerControl from './containers/SequencerControl';
-import SoundControl from './containers/SoundControl';
+import React, { Component } from 'react'
+import SequencerControl from './containers/SequencerControl'
+import SoundControl from './containers/SoundControl'
 
 import Sequencer from './lib/Sequencer'
 import Kick from './lib/Kick'
 import Scheduler from './lib/Scheduler'
 
-import './App.css';
+import './App.css'
 
 const styles = {
   mainContainer: {
@@ -66,11 +66,16 @@ class App extends Component {
     return index < kickSequencer.division
   }
 
+  changeSound = (x, y) => {
+    kick.changeSound(x, y)
+  }
+
   render() {
     return (
       <div style={styles.mainContainer}>
         <SoundControl
-          style={styles.soundControl}/>
+          style={styles.soundControl}
+          changeSound={this.changeSound}/>
         <SequencerControl
           style={styles.sequencerControl}
           sequencer={this.state.steps}
@@ -79,8 +84,8 @@ class App extends Component {
           changeStepNumber={this.changeStepNumber}
           changeResolution={this.changeResolution}/>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

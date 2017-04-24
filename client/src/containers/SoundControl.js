@@ -16,7 +16,7 @@ class SoundControl extends Component{
   render() {
     return (
       <div style={styles.controls}>
-        <XyPad />
+        <XyPad changeSound={this.props.changeSound}/>
       </div>
     )
   }

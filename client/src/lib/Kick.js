@@ -5,6 +5,7 @@ class Kick {
     this.attackTime = 0.03
     this.decay = 0.5
   }
+
   play(triggerTime, velocity, stepLength, audioContext) {
     const duration = stepLength * this.decay
     const startTime = triggerTime
@@ -24,6 +25,11 @@ class Kick {
 
     oscillator.start(startTime)
     oscillator.stop(endTime + duration * 10)
+  }
+
+  changeSound(x, y) {
+    this.frequency = 30 + 40 * y
+    this.decay = 0.25 + Math.pow(x, 2)
   }
 }
 

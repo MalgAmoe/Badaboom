@@ -41,7 +41,10 @@ class XyPad extends Component {
 
   changePosition(pos) {
     this.setState({left:pos.nativeEvent.offsetX, top:pos.nativeEvent.offsetY})
-    this.setState({x:pos.nativeEvent.offsetX/styles.pad.width, y:1 - pos.nativeEvent.offsetY/styles.pad.width})
+    const x = pos.nativeEvent.offsetX/styles.pad.width
+    const y = 1 - pos.nativeEvent.offsetY/styles.pad.width
+    this.setState({x:x, y:y})
+    this.props.changeSound(x, y)
   }
 
   modifySound = (e) => {
