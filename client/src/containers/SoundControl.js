@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import XyPad from './Xy'
-import SoundSelector from './SoundSelector'
 
 const styles = {
   controls: {
@@ -8,8 +7,8 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: 400,
-    backgroundColor: 'blue',
-    opacity: 0.7
+    backgroundColor: 'black',
+    opacity: 1
   }
 }
 

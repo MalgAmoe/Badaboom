@@ -6,7 +6,7 @@ const Styles = {
     width: 75,
     borderRadius: 20,
     marginRight: 50,
-    backgroundColor: 'blue',
+    backgroundColor: 'green',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

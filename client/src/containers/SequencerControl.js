@@ -6,7 +6,7 @@ import Slider from '../components/Slider'
 const styles = {
   seqContainer: {
     width: '100%',
-    backgroundColor: 'green',
+    backgroundColor: 'black',
     flex:1,
     display: 'flex',
     flexDirection: 'column',
@@ -20,7 +20,7 @@ const styles = {
     alignItems: 'center'
   },
   sliders: {
-    
+
   }
 }
 

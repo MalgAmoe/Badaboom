@@ -6,7 +6,7 @@ const styles = {
     width: 300,
     height: 300,
     borderRadius: 5,
-    backgroundColor: 'red',
+    backgroundColor: 'blue',
     opacity: 0.8
   },
   position: {
