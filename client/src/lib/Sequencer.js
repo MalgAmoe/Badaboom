@@ -1,6 +1,6 @@
 
 class Sequencer {
-  constructor(resolution, division, tempo, triggerSound) {
+  constructor(resolution, division, tempo, sound) {
     this.tempo = tempo
     this.resolution = resolution
     this.division = division
@@ -11,7 +11,7 @@ class Sequencer {
     this.currentStep = -1
     this.nextStepTime = 0
     // this.timeLag = (60.0 / tempo) * resolution / division
-    this.triggerSound = triggerSound
+    this.sound = sound
     this.timeLag = 0
     this.calculateLag()
   }
@@ -44,7 +44,7 @@ class Sequencer {
     while(this.nextStepTime < audioContext.currentTime + scheduleWindow) {
       var kickData = this.getNextStep()
       if (kickData[1] > 0) {
-        this.triggerSound(kickData[0], kickData[1], this.timeLag, audioContext)
+        this.sound.play(kickData[0], kickData[1], this.timeLag, audioContext)
       }
     }
   }

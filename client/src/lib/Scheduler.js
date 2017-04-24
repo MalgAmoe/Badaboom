@@ -3,8 +3,8 @@ export default class Scheduler {
   constructor(tempo, sequencer, audioContext) {
     this.audioContext = audioContext
     this.tempo = tempo
-    this.scheduleInterval = 16
-    this.scheduleWindow = 0.20
+    this.scheduleInterval = 20
+    this.scheduleWindow = 0.03
     this.sequencer = sequencer
     this.timerID = null
   }
