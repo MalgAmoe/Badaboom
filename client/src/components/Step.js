@@ -6,16 +6,13 @@ const styles = {
     width: '100%',
     borderRadius: 20,
     backgroundColor: 'black',
-    margin: 2
+    margin: 2,
+    cursor: 'pointer'
   }
 }
 
 
 class Step extends Component {
-  state = {
-    velocity: 0
-  }
-  
   setStep = () => {
     this.setState({velocity: 1})
     this.props.addStep(this.props.stepNum, 1)
@@ -28,7 +25,7 @@ class Step extends Component {
 
   render() {
     return (
-      <div onClick={this.setStep} onDoubleClick={this.eraseStep} style={Object.assign({}, styles.step, {opacity: this.state.velocity * 0.9 + 0.1})}></div>
+      <div onClick={this.setStep} onDoubleClick={this.eraseStep} style={Object.assign({}, styles.step, {opacity: this.props.velocity * 0.9 + 0.1})}></div>
     )
   }
 }

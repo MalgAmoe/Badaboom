@@ -1,6 +1,7 @@
 
 class Sequencer {
   constructor(resolution, division, tempo, triggerSound) {
+    this.tempo = tempo
     this.resolution = resolution
     this.division = division
     this.steps = []
@@ -9,8 +10,9 @@ class Sequencer {
     }
     this.currentStep = -1
     this.nextStepTime = 0
-    this.timeLag = (60.0 / tempo) * resolution / division
+    // this.timeLag = (60.0 / tempo) * resolution / division
     this.triggerSound = triggerSound
+    this.calculateLag()
   }
 
   setStep = (stepNum, velocity) => {
@@ -22,10 +24,11 @@ class Sequencer {
   }
 
   getNextStep = () => {
-    let nextStep = ++this.currentStep
+    let nextStep = this.currentStep++
 
     if(nextStep >= this.division) {
-      nextStep = this.currentStep = 0
+      this.currentStep = 0
+      nextStep = this.currentStep++
     }
     let velocity = this.steps[nextStep]
     let time = this.nextStepTime
@@ -45,17 +48,30 @@ class Sequencer {
     }
   }
 
+  calculateLag = () => {
+    this.timeLag = (60.0 / this.tempo) * this.resolution / this.division
+  }
+
   changeTempo = (tempo) => {
-    this.timeLag = (60.0 / tempo) * this.resolution / this.division
+    this.tempo = tempo
+    this.calculateLag()
+  }
+
+  changeResolution = (resolution) => {
+    this.resolution = resolution
+    this.calculateLag()
+  }
+
+  changeDivision = (division) => {
+    this.division = division
+    this.calculateLag()
   }
 
   stop = () => {
-    console.log(this.nextStepTime);
     this.currentStep = -1
   }
 
   start = (audioContext) => {
-    console.log(this.nextStepTime);
     this.nextStepTime = audioContext.currentTime
   }
 }

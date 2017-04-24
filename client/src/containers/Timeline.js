@@ -3,14 +3,15 @@ import Step from '../components/Step'
 
 const styles = {
   timeline: {
+    flex: 1,
     height: 75,
-    width: '60%',
     borderRadius: 20,
-    backgroundColor: 'pink',
+    backgroundColor: 'white',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    padding: 5
+    padding: 5,
+    margin: 50
   }
 }
 

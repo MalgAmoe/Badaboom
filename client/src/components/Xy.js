@@ -6,8 +6,9 @@ const styles = {
     width: 300,
     height: 300,
     borderRadius: 5,
-    backgroundColor: 'blue',
-    opacity: 0.8
+    backgroundColor: 'lightblue',
+    opacity: 0.9,
+    cursor: 'pointer'
   },
   position: {
     position: 'absolute',
@@ -16,7 +17,7 @@ const styles = {
     margin: -10,
     borderRadius:10,
     backgroundColor: 'yellow',
-    opacity: 0.7,
+    opacity: 0.9,
     pointerEvents: 'none'
   }
 }

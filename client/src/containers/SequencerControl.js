@@ -13,35 +13,34 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center'
   },
-  timeline: {
+  style: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
-  sliders: {
-
-  }
 }
 
 class SequencerControl extends Component{
-  state = {
-    steps: this.props.sequencer
-  }
   render() {
     return (
       <div style={styles.seqContainer}>
-        <div style={styles.sliders}>
-          <Slider max={8}/>
-          <Slider max={16}/>
+        <div style={styles.style}>
+          <Slider name='Resolution' max={16} default={1}/>
+          <Slider
+            name='Steps'
+            max={16}
+            default={16}
+            changeStepNumber={this.props.changeStepNumber}/>
         </div>
-        <div style={styles.timeline}>
+        <div style={styles.style}>
           <Start
             startStop={this.props.startStop}/>
           <Timeline
-            steps={this.state.steps}
+            steps={this.props.sequencer}
             addStep={this.props.addStep}/>
         </div>
+
       </div>
     )
   }

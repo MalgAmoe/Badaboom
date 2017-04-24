@@ -23,22 +23,24 @@ const styles = {
 }
 
 const audioContext = new AudioContext()
-
 let tempo = 120
-
 let kickSequencer = new Sequencer(4, 16, tempo, playKick, audioContext)
-
 let scheduler = new Scheduler(tempo, kickSequencer, audioContext)
 
 
-
-// scheduler.start()
-// setTimeout(scheduler.stop, 10000)
-
 class App extends Component {
+
+  state = {
+    steps: kickSequencer.steps
+  }
 
   addStep = (step, velocity) => {
     kickSequencer.setStep(step, velocity)
+    this.updateSteps(kickSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
+  }
+
+  updateSteps = (newSteps) => {
+    this.setState({steps: newSteps})
   }
 
   startStop = (started) => {
@@ -51,15 +53,30 @@ class App extends Component {
     }
   }
 
+  changeResolution = (resolution) => {
+    kickSequencer.changeResolution(resolution)
+  }
+
+  changeStepNumber = (division) => {
+    kickSequencer.changeDivision(division)
+    this.updateSteps(kickSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
+  }
+
+  filterSteps = (step, index) => {
+    return index < kickSequencer.division
+  }
+
   render() {
     return (
       <div style={styles.mainContainer}>
-        <SoundControl style={styles.soundControl}/>
+        <SoundControl
+          style={styles.soundControl}/>
         <SequencerControl
           style={styles.sequencerControl}
-          sequencer={kickSequencer.steps}
+          sequencer={this.state.steps}
           addStep={this.addStep}
-          startStop={this.startStop}/>
+          startStop={this.startStop}
+          changeStepNumber={this.changeStepNumber}/>
       </div>
     );
   }
