@@ -33,17 +33,15 @@ class XyPosition extends Component {
 class XyPad extends Component {
   state = {
     touched: false,
-    x:0,
-    y:0,
-    left:0,
-    top:styles.pad.width
+    x:0.5,
+    y:0.5,
+    left:styles.pad.width * 0.5,
+    top:styles.pad.width * 0.5
   }
 
   changePosition(pos) {
     this.setState({left:pos.nativeEvent.offsetX, top:pos.nativeEvent.offsetY})
     this.setState({x:pos.nativeEvent.offsetX/styles.pad.width, y:1 - pos.nativeEvent.offsetY/styles.pad.width})
-    // console.log(`x:${this.state.x}`
-    //   + ` y:${this.state.y}`);
   }
 
   modifySound = (e) => {

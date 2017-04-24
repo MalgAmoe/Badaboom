@@ -12,6 +12,7 @@ class Sequencer {
     this.nextStepTime = 0
     // this.timeLag = (60.0 / tempo) * resolution / division
     this.triggerSound = triggerSound
+    this.timeLag = 0
     this.calculateLag()
   }
 
@@ -43,7 +44,7 @@ class Sequencer {
     while(this.nextStepTime < audioContext.currentTime + scheduleWindow) {
       var kickData = this.getNextStep()
       if (kickData[1] > 0) {
-        this.triggerSound(kickData[0], kickData[1], audioContext)
+        this.triggerSound(kickData[0], kickData[1], this.timeLag, audioContext)
       }
     }
   }
