@@ -48,6 +48,16 @@ class Sequencer {
   changeTempo = (tempo) => {
     this.timeLag = (60.0 / tempo) * this.resolution / this.division
   }
+
+  stop = () => {
+    console.log(this.nextStepTime);
+    this.currentStep = -1
+  }
+
+  start = (audioContext) => {
+    console.log(this.nextStepTime);
+    this.nextStepTime = audioContext.currentTime
+  }
 }
 
 export default Sequencer

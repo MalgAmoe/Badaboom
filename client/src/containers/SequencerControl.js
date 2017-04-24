@@ -36,8 +36,11 @@ class SequencerControl extends Component{
           <Slider max={16}/>
         </div>
         <div style={styles.timeline}>
-          <Start action={'Play'} />
-          <Timeline steps={this.state.steps} addStep={this.props.addStep}/>
+          <Start
+            startStop={this.props.startStop}/>
+          <Timeline
+            steps={this.state.steps}
+            addStep={this.props.addStep}/>
         </div>
       </div>
     )

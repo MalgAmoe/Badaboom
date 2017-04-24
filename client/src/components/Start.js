@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 const Styles = {
   start: {
@@ -6,7 +6,6 @@ const Styles = {
     width: 75,
     borderRadius: 20,
     marginRight: 50,
-    backgroundColor: 'green',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -14,10 +13,29 @@ const Styles = {
   }
 }
 
-const Start = (props) => {
-  return (
-    <div style={Styles.start}>{props.action}</div>
-  )
+class Start extends Component {
+  state = {
+    started: false,
+    color: 'green',
+    action: 'Play'
+  }
+  toggleStartStop = () => {
+    if (this.state.started) {
+      this.setState({started: false, color: 'green', action: 'Play'})
+    } else {
+      this.setState({started: true, color: 'red', action: 'Stop'})
+    }
+    this.props.startStop(this.state.started)
+  }
+  render() {
+    return (
+      <div
+        style={Object.assign({}, Styles.start, {backgroundColor: this.state.color})}
+        onClick={this.toggleStartStop}
+        >{this.state.action}</div>
+    )
+  }
+
 }
 
 export default Start
