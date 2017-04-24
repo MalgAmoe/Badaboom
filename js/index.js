@@ -6,7 +6,7 @@ var isPlaying = false
 var startTime
 var tempo = 120
 var eventsScheduled = []
-var timerWorker = null
+
 
 var scheduleAheadTime = 0.2
 
@@ -74,8 +74,19 @@ function Sequencer(resolution, division) {
   return seq
 }
 
+
+//-------------------------event scheduling
+function scheduler() {
+  var nextNoteTime = kickSequencer.checkNextStep()
+  while(nextNoteTime < audioContext.currentTime + scheduleAheadTime) {
+    kickSequencer.scheduleStep()
+    nextNoteTime = kickSequencer.checkNextStep()
+    // console.log(nextNoteTime, audioContext.currentTime + scheduleAheadTime);
+  }
+}
+
 //-------------------------sequencer instance
-var kickSequencer = Sequencer(2, 8)
+var kickSequencer = Sequencer(2, 16)
 kickSequencer.setStep(0, 1)
 kickSequencer.setStep(1, 0)
 kickSequencer.setStep(2, 0.2)
@@ -93,17 +104,6 @@ kickSequencer.setStep(13, 0)
 kickSequencer.setStep(14, 0.2)
 kickSequencer.setStep(15, 0)
 kickSequencer.startSequencer()
-
-//-------------------------event scheduling
-function scheduler() {
-  var nextNoteTime = kickSequencer.checkNextStep()
-  while(nextNoteTime < audioContext.currentTime + scheduleAheadTime) {
-    kickSequencer.scheduleStep()
-    nextNoteTime = kickSequencer.checkNextStep()
-    // console.log(nextNoteTime, audioContext.currentTime + scheduleAheadTime);
-  }
-}
-
 //-------------------------sequencer controls
 // function play() {
 //   isPlaying = !isPlaying

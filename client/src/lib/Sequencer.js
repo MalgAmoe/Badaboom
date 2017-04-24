@@ -1,6 +1,6 @@
 
 class Sequencer {
-  constructor(resolution, division, tempo) {
+  constructor(resolution, division, tempo, triggerSound) {
     this.resolution = resolution
     this.division = division
     this.steps = []
@@ -10,37 +10,43 @@ class Sequencer {
     this.currentStep = -1
     this.nextStepTime = 0
     this.timeLag = (60.0 / tempo) * resolution / division
+    this.triggerSound = triggerSound
   }
 
-  this.setStep = (stepNum, velocity) => {
+  setStep = (stepNum, velocity) => {
     this.steps[stepNum] = velocity
   }
 
-  this.eraseStep = (stepNum) => {
+  eraseStep = (stepNum) => {
     this.setStep(stepNum, 0)
   }
 
-  this.checkNextStep = () => {
-    return this.nextNoteTime
-  }
-
-  this.getNextStep = () => {
+  getNextStep = () => {
     let nextStep = ++this.currentStep
 
     if(nextStep >= this.division) {
-      nextStep = seq.currentStep = 0
+      nextStep = this.currentStep = 0
     }
     let velocity = this.steps[nextStep]
-    let time = this.nextStepData
+    let time = this.nextStepTime
     let nextStepData = [time, velocity]
+    this.nextStepTime += this.timeLag
 
-    this.nextNoteTime += this.timeLag
 
     return nextStepData
   }
 
-  this.setTimeLag = (tempo) => {
-    this.timeLag = (60.0 / tempo) * resolution / division
+  scheduleSteps = function(scheduleWindow, audioContext) {
+    while(this.nextStepTime < audioContext.currentTime + scheduleWindow) {
+      var kickData = this.getNextStep()
+      if (kickData[1] > 0) {
+        this.triggerSound(kickData[0], kickData[1], audioContext)
+      }
+    }
+  }
+
+  setTimeLag = (tempo) => {
+    this.timeLag = (60.0 / tempo) * this.resolution / this.division
   }
 }
 
