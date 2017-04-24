@@ -1,11 +1,24 @@
 
 export default class Scheduler {
-  constructor(tempo) {
+  constructor(tempo, sequencer) {
     this.audioContext = new AudioContext()
     this.tempo = tempo
-    this.interval = 100
-    this.scheduleAheadTime = 0.15
-    this.sequencers = []
+    this.scheduleInterval = 100
+    this.scheduleWindow = 0.12
+    this.sequencer = sequencer
+    this.timerID = null
+  }
+
+  start = () => {
+    this.timerID = setInterval(this.schedule, this.scheduleInterval)
+  }
+
+  stop = () => {
+    clearInterval(this.timerID)
+  }
+
+  schedule = () => {
+    this.sequencer.scheduleSteps(this.scheduleWindow, this.audioContext)
   }
 
 }

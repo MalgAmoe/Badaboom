@@ -4,6 +4,7 @@ import SoundControl from './containers/SoundControl';
 
 import Sequencer from './lib/Sequencer'
 import playKick from './lib/Kick'
+import Scheduler from './lib/Scheduler'
 
 import './App.css';
 
@@ -35,8 +36,8 @@ class App extends Component {
 const audioContext = new AudioContext()
 
 let tempo = 120
-const scheduleWindow = 0.12
-const scheduleInterval = 100
+// const scheduleWindow = 0.12
+// const scheduleInterval = 100
 
 let kickSequencer = new Sequencer(1, 16, tempo, playKick, audioContext)
 kickSequencer.setStep(0, 1)
@@ -56,14 +57,20 @@ kickSequencer.setStep(13, 0.1)
 kickSequencer.setStep(14, 0.2)
 kickSequencer.setStep(15, 0.1)
 
-const scheduler = () => {
-  kickSequencer.scheduleSteps(scheduleWindow, audioContext)
-}
+let scheduler = new Scheduler(tempo, kickSequencer)
 
-console.log(audioContext);
+scheduler.start()
 
-console.log(kickSequencer);
+setTimeout(scheduler.stop, 10000)
 
-setInterval(scheduler, scheduleInterval)
+// const scheduler = () => {
+//   kickSequencer.scheduleSteps(scheduleWindow, audioContext)
+// }
+//
+// console.log(audioContext);
+//
+// console.log(kickSequencer);
+//
+// setInterval(scheduler, scheduleInterval)
 
 export default App;
