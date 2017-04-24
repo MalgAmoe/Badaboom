@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import XyPad from './Xy'
+import XyPad from '../components/Xy'
 
 const styles = {
   controls: {

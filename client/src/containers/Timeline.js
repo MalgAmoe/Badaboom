@@ -16,12 +16,11 @@ const styles = {
 
 class Timeline extends Component {
   render() {
-
     return (
       <div style={styles.timeline}>
         {
           this.props.steps.map((step, i) => (
-            <Step key={i} velocity={step}/>
+            <Step key={i} stepNum={i} velocity={step} addStep={this.props.addStep}/>
           ))
         }
       </div>

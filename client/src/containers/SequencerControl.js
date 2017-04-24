@@ -26,7 +26,7 @@ const styles = {
 
 class SequencerControl extends Component{
   state = {
-    steps: [1, 0, 0.5, 0, 1, 0, 0.3, 0, 1, 0, 0.5, 0, 1, 0.8, 0.3, 0]
+    steps: this.props.sequencer
   }
   render() {
     return (
@@ -37,7 +37,7 @@ class SequencerControl extends Component{
         </div>
         <div style={styles.timeline}>
           <Start action={'Play'} />
-          <Timeline steps={this.state.steps}/>
+          <Timeline steps={this.state.steps} addStep={this.props.addStep}/>
         </div>
       </div>
     )

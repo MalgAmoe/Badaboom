@@ -45,7 +45,7 @@ class Sequencer {
     }
   }
 
-  setTimeLag = (tempo) => {
+  changeTempo = (tempo) => {
     this.timeLag = (60.0 / tempo) * this.resolution / this.division
   }
 }
