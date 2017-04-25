@@ -5,6 +5,8 @@ class Snare {
     this.attack = 0.00001
     this.decay = 0.25
     this.blend = 0.5
+    this.x = 0.5
+    this.y = 0.5
   }
 
   play(triggerTime, velocity, stepLength, audioContext) {
@@ -49,6 +51,8 @@ class Snare {
   }
 
   changeSound(x, y) {
+    this.x = x
+    this.y = y
     this.blend = x
     this.sineFrequency = 100 + 100 * y
     this.decay = 0.2 * (x + y)

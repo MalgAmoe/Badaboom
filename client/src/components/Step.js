@@ -40,7 +40,6 @@ class Step extends Component {
       default:
 
     }
-    console.log(-e.nativeEvent.movementY/10);
   }
 
   render() {

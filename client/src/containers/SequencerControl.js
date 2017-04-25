@@ -22,6 +22,11 @@ const styles = {
 }
 
 class SequencerControl extends Component{
+
+  filterSteps = (step, index) => {
+    return index < this.props.sequencer.division
+  }
+
   render() {
     return (
       <div style={styles.seqContainer}>
@@ -29,19 +34,19 @@ class SequencerControl extends Component{
           <Slider
             name='Resolution'
             max={16}
-            default={4}
+            default={this.props.sequencer.resolution}
             change={this.props.changeResolution}/>
           <Slider
             name='Steps'
             max={16}
-            default={16}
+            default={this.props.sequencer.division}
             change={this.props.changeStepNumber}/>
         </div>
         <div style={styles.style}>
           <Start
             startStop={this.props.startStop}/>
           <Timeline
-            steps={this.props.sequencer}
+            steps={this.props.sequencer.steps.filter((step, index) => this.filterSteps(step, index))}
             addStep={this.props.addStep}/>
         </div>
 

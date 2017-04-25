@@ -22,14 +22,24 @@ const styles = {
 }
 
 class SoundSelector extends Component {
+  renderSequencers = () => {
+    return this.props.sequencerList.map((sequencer, i) => {
+      return (
+        <Selector
+          key={i}
+          sound={sequencer.sound.constructor.name}
+          selected={sequencer === this.props.activeSequencer}
+          onClick={() => this.props.changeSequencer(sequencer)}/>
+      )
+    })
+  }
   render() {
     this.state = {
 
     }
     return(
       <div style={styles.selectorContainer}>
-        <Selector sound='Kick' selected={true}/>
-        <Selector sound='Snare' selected={false}/>
+        {this.renderSequencers()}
       </div>
     )
   }

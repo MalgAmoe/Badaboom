@@ -4,6 +4,8 @@ class Kick {
     this.attackFrequency = 200
     this.attackTime = 0.03
     this.decay = 0.5
+    this.x = 0.5
+    this.y = 0.5
   }
 
   play(triggerTime, velocity, stepLength, audioContext) {
@@ -28,6 +30,8 @@ class Kick {
   }
 
   changeSound(x, y) {
+    this.x = x
+    this.y = y
     this.frequency = 30 + 40 * y
     this.decay = 0.25 + Math.pow(x, 2)
     this.attackFrequency = 300 - 300 * x + 200 * y

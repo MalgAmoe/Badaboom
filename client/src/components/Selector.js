@@ -21,7 +21,7 @@ class Selector extends Component {
   }
   render() {
     return (
-      <div style={Object.assign({}, styles.selector, {
+      <div onClick={this.props.onClick} style={Object.assign({}, styles.selector, {
         backgroundColor: this.props.selected ? 'white' : 'grey',
         color: this.props.selected ? 'grey' : 'white'
       })}>{this.props.sound}</div>

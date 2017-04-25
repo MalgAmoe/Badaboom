@@ -17,6 +17,12 @@ class Slider extends Component{
     value: this.props.default
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.default
+    })
+  }
+
   changeValue = (e) => {
     this.setState({value: e.target.value})
     this.props.change(e.target.value)

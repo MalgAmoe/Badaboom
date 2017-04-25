@@ -29,17 +29,20 @@ const kick = new Kick()
 const kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
 const snare = new Snare()
 const snareSequencer = new Sequencer(4, 16, tempo, snare, audioContext)
-const scheduler = new Scheduler(tempo, kickSequencer, audioContext)
+const sequencers = [kickSequencer, snareSequencer]
+const scheduler = new Scheduler(tempo, sequencers, audioContext)
 
 class App extends Component {
 
   state = {
-    steps: kickSequencer.steps
+    steps: kickSequencer.steps,
+    activeSequencer: kickSequencer,
+    sequencers: sequencers
   }
 
   addStep = (step, velocity) => {
-    kickSequencer.setStep(step, velocity)
-    this.updateSteps(kickSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
+    this.state.activeSequencer.setStep(step, velocity)
+    this.updateSteps(this.state.activeSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
   }
 
   updateSteps = (newSteps) => {
@@ -49,39 +52,49 @@ class App extends Component {
   startStop = (started) => {
     if (!started) {
       scheduler.start()
-      kickSequencer.start(audioContext)
+      sequencers.forEach(sequencer => {
+        sequencer.start(audioContext)
+      })
     } else {
       scheduler.stop()
-      kickSequencer.stop()
+      sequencers.forEach(sequencer => {
+        sequencer.stop(audioContext)
+      })
     }
   }
 
   changeResolution = (resolution) => {
-    kickSequencer.changeResolution(resolution)
+    this.state.activeSequencer.changeResolution(resolution)
   }
 
   changeStepNumber = (division) => {
-    kickSequencer.changeDivision(division)
-    this.updateSteps(kickSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
+    this.state.activeSequencer.changeDivision(division)
+    this.updateSteps(this.state.activeSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
   }
 
   filterSteps = (step, index) => {
-    return index < kickSequencer.division
+    return index < this.state.activeSequencer.division
   }
 
   changeSound = (x, y) => {
-    kick.changeSound(x, y)
+    this.state.activeSequencer.sound.changeSound(x, y)
+  }
+
+  changeSequencer = (sequencer) => {
+    this.setState({activeSequencer: sequencer})
   }
 
   render() {
     return (
       <div style={styles.mainContainer}>
         <SoundControl
-          style={styles.soundControl}
-          changeSound={this.changeSound}/>
+          changeSound={this.changeSound}
+          sequencerList={this.state.sequencers}
+          changeSequencer={this.changeSequencer}
+          activeSequencer={this.state.activeSequencer}/>
         <SequencerControl
           style={styles.sequencerControl}
-          sequencer={this.state.steps}
+          sequencer={this.state.activeSequencer}
           addStep={this.addStep}
           startStop={this.startStop}
           changeStepNumber={this.changeStepNumber}

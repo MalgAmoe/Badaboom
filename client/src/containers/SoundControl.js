@@ -15,10 +15,14 @@ const styles = {
 
 class SoundControl extends Component{
   render() {
+    const { changeSound, ...rest } = this.props
     return (
       <div style={styles.controls}>
-        <SoundSelector />
-        <XyPad changeSound={this.props.changeSound}/>
+        <SoundSelector {...rest} />
+        <XyPad
+          changeSound={this.props.changeSound}
+          x={this.props.activeSequencer.sound.x}
+          y={this.props.activeSequencer.sound.y}/>
       </div>
     )
   }
