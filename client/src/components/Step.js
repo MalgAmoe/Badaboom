@@ -14,8 +14,8 @@ const styles = {
 
 class Step extends Component {
   setStep = () => {
-    this.setState({velocity: 0.7})
-    this.props.addStep(this.props.stepNum, 0.7)
+    this.setState({velocity: 0.5})
+    this.props.addStep(this.props.stepNum, 0.5)
   }
 
   eraseStep = () => {

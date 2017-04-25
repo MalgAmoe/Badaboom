@@ -5,6 +5,7 @@ import SoundControl from './containers/SoundControl'
 import Sequencer from './lib/Sequencer'
 import Kick from './lib/Kick'
 import Snare from './lib/Snare'
+import Hat from './lib/Hat'
 import Scheduler from './lib/Scheduler'
 
 import './App.css'
@@ -29,7 +30,9 @@ const kick = new Kick()
 const kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
 const snare = new Snare()
 const snareSequencer = new Sequencer(4, 16, tempo, snare, audioContext)
-const sequencers = [kickSequencer, snareSequencer]
+const hat = new Hat()
+const hatSequencer = new Sequencer(4, 16, tempo, hat, audioContext)
+const sequencers = [kickSequencer, snareSequencer, hatSequencer]
 const scheduler = new Scheduler(tempo, sequencers, audioContext)
 
 class App extends Component {

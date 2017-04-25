@@ -8,9 +8,8 @@ class Sequencer {
     for (let i = 0; i < 16; i++) {
       this.steps[i] = 0
     }
-    this.currentStep = -1
+    this.currentStep = 0
     this.nextStepTime = 0
-    // this.timeLag = (60.0 / tempo) * resolution / division
     this.sound = sound
     this.timeLag = 0
     this.calculateLag()
@@ -42,9 +41,9 @@ class Sequencer {
 
   scheduleSteps = function(scheduleWindow, audioContext) {
     while(this.nextStepTime < audioContext.currentTime + scheduleWindow) {
-      var kickData = this.getNextStep()
-      if (kickData[1] > 0) {
-        this.sound.play(kickData[0], kickData[1], this.timeLag, audioContext)
+      var soundData = this.getNextStep()
+      if (soundData[1] > 0) {
+        this.sound.play(soundData[0], soundData[1], this.timeLag, audioContext)
       }
     }
   }
@@ -69,7 +68,7 @@ class Sequencer {
   }
 
   stop = () => {
-    this.currentStep = -1
+    this.currentStep = 0
   }
 
   start = (audioContext) => {

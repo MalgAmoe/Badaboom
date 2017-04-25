@@ -1,7 +1,6 @@
 class Snare {
   constructor() {
     this.sineFrequency = 150
-    this.filterFrequency = 16000
     this.attack = 0.00001
     this.decay = 0.25
     this.blend = 0.5
