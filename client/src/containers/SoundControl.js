@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import XyPad from '../components/Xy'
+import SoundSelector from './SoundSelector'
 
 const styles = {
   controls: {
@@ -16,6 +17,7 @@ class SoundControl extends Component{
   render() {
     return (
       <div style={styles.controls}>
+        <SoundSelector />
         <XyPad changeSound={this.props.changeSound}/>
       </div>
     )

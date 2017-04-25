@@ -25,9 +25,11 @@ const styles = {
 
 const audioContext = new AudioContext()
 let tempo = 120
-let kick = new Snare()
-let kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
-let scheduler = new Scheduler(tempo, kickSequencer, audioContext)
+const kick = new Kick()
+const kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
+const snare = new Snare()
+const snareSequencer = new Sequencer(4, 16, tempo, snare, audioContext)
+const scheduler = new Scheduler(tempo, kickSequencer, audioContext)
 
 class App extends Component {
 

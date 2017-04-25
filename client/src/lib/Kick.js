@@ -31,9 +31,6 @@ class Kick {
     this.frequency = 30 + 40 * y
     this.decay = 0.25 + Math.pow(x, 2)
     this.attackFrequency = 300 - 300 * x + 200 * y
-    // if (x > 0.5 && y > 0.5) {
-    //   this.attackFrequency = (x) * (y) / 10
-    // }
   }
 }
 
