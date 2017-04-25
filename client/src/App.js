@@ -4,6 +4,7 @@ import SoundControl from './containers/SoundControl'
 
 import Sequencer from './lib/Sequencer'
 import Kick from './lib/Kick'
+import Snare from './lib/Snare'
 import Scheduler from './lib/Scheduler'
 
 import './App.css'
@@ -24,7 +25,7 @@ const styles = {
 
 const audioContext = new AudioContext()
 let tempo = 120
-let kick = new Kick()
+let kick = new Snare()
 let kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
 let scheduler = new Scheduler(tempo, kickSequencer, audioContext)
 
