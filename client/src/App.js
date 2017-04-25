@@ -38,6 +38,7 @@ const scheduler = new Scheduler(tempo, sequencers, audioContext)
 class App extends Component {
 
   state = {
+    tempo: tempo,
     steps: kickSequencer.steps,
     activeSequencer: kickSequencer,
     sequencers: sequencers
@@ -87,6 +88,13 @@ class App extends Component {
     this.setState({activeSequencer: sequencer})
   }
 
+  changeTempo = (tempo) => {
+    this.setState({tempo: tempo})
+    sequencers.forEach(sequencer => {
+      sequencer.changeTempo(tempo)
+    })
+  }
+
   render() {
     return (
       <div style={styles.mainContainer}>
@@ -101,7 +109,9 @@ class App extends Component {
           addStep={this.addStep}
           startStop={this.startStop}
           changeStepNumber={this.changeStepNumber}
-          changeResolution={this.changeResolution}/>
+          changeResolution={this.changeResolution}
+          tempo={this.state.tempo}
+          changeTempo={this.changeTempo}/>
       </div>
     )
   }

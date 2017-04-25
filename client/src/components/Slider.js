@@ -34,7 +34,7 @@ class Slider extends Component{
         <span>{this.props.name}: {this.state.value}</span>
         <input
           style={styles.slider}
-          type='range' min='1'
+          type='range' min={this.props.min}
           max={this.props.max}
           value={this.state.value}
           onChange={this.changeValue}/>

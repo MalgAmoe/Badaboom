@@ -32,13 +32,21 @@ class SequencerControl extends Component{
       <div style={styles.seqContainer}>
         <div style={styles.style}>
           <Slider
+            name='Tempo'
+            max={200}
+            min={50}
+            default={this.props.tempo}
+            change={this.props.changeTempo}/>
+          <Slider
             name='Resolution'
             max={16}
+            min={1}
             default={this.props.sequencer.resolution}
             change={this.props.changeResolution}/>
           <Slider
             name='Steps'
             max={16}
+            min={1}
             default={this.props.sequencer.division}
             change={this.props.changeStepNumber}/>
         </div>
