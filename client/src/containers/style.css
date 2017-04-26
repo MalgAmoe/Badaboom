@@ -1,4 +1,4 @@
-@media (min-width: 720px) {
+@media (min-width: 780px) {
   .timelineSize {
     margin: 40px;
   }
@@ -6,7 +6,7 @@
     flex-direction: row;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 780px) {
   .timelineSize {
     margin: 40px;
     margin-left: 0px;

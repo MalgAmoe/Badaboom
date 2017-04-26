@@ -14,7 +14,7 @@ const styles = {
   mainContainer: {
     display: 'flex',
     flexDirection: 'column',
-    
+
   },
   soundControl: {
     height:400,

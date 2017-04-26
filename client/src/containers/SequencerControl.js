@@ -33,6 +33,9 @@ const styles = {
     padding: 10,
     margin: 10,
     borderRadius: 5
+  },
+  text: {
+    color: 'white'
   }
 }
 
@@ -57,7 +60,7 @@ class SequencerControl extends Component{
             change={this.props.changeStepNumber}/>
           <div
             onClick={this.props.sync}
-            style={styles.sync}>Sync</div>
+            style={styles.sync}>Synchronise</div>
           <StepParameter
             functionality='Bars'
             selected={this.props.sequencer.resolution}

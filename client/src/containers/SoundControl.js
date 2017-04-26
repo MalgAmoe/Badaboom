@@ -9,9 +9,12 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    height: 500,
+    height: 580,
     backgroundColor: 'black',
     opacity: 1
+  },
+  text: {
+    color: 'white',
   }
 }
 
@@ -20,6 +23,8 @@ class SoundControl extends Component{
     const { changeSound, ...rest } = this.props
     return (
       <div style={styles.controls}>
+        <h1 style={styles.text}>BADABOOM</h1>
+        <p style={styles.text}>Go down, press play, push stuff and have fun!!!</p>
         <XyPad
           changeSound={this.props.changeSound}
           x={this.props.activeSequencer.sound.x}
