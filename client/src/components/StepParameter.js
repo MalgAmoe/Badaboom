@@ -46,9 +46,9 @@ class ParameterValue extends Component {
   //   console.log(nextProps.selected);
   // }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps);
+  // }
 
   changeValue = () => {
     this.props.change(this.props.value)

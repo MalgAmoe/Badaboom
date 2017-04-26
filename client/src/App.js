@@ -114,16 +114,16 @@ class App extends Component {
           changeSound={this.changeSound}
           sequencerList={this.state.sequencers}
           changeSequencer={this.changeSequencer}
+          startStop={this.startStop}
+          tempo={this.state.tempo}
+          changeTempo={this.changeTempo}
           activeSequencer={this.state.activeSequencer}/>
         <SequencerControl
           style={styles.sequencerControl}
           sequencer={this.state.activeSequencer}
           addStep={this.addStep}
-          startStop={this.startStop}
           changeStepNumber={this.changeStepNumber}
           changeResolution={this.changeResolution}
-          tempo={this.state.tempo}
-          changeTempo={this.changeTempo}
           sync={this.sync}/>
       </div>
     )

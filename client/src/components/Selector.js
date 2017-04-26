@@ -11,7 +11,6 @@ const styles = {
     padding: 5,
     cursor: 'pointer',
     margin: 10,
-    marginRight: 100,
     color: 'black'
   }
 }
