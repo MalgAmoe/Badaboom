@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 const styles = {
   button: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -16,8 +16,8 @@ const styles = {
     opacity: 0.8
   },
   selector: {
-    height: 48,
-    width: 190,
+    height: 70,
+    width: 275,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -28,27 +28,11 @@ const styles = {
     color: 'grey',
   },
   container: {
-    margin: 40
+    margin: 20
   }
 }
 
 class ParameterValue extends Component {
-  // state = {
-  //   selected: this.props.selected,
-  //   value: this.props.value
-  // }
-  // //
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({
-  //     selected: nextProps.selected,
-  //     value: nextProps.value
-  //   })
-  //   console.log(nextProps.selected);
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps);
-  // }
 
   changeValue = () => {
     this.props.change(this.props.value)

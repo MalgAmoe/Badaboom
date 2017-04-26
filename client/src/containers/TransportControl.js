@@ -5,9 +5,10 @@ import Slider from '../components/Slider'
 
 const styles = {
   transport: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center'
   }
 }

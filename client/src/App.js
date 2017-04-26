@@ -14,13 +14,13 @@ const styles = {
   mainContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh'
+    
   },
   soundControl: {
     height:400,
   },
   sequencerControl: {
-    flex: 1
+    heihgt: 400
   }
 }
 
@@ -114,12 +114,12 @@ class App extends Component {
           changeSound={this.changeSound}
           sequencerList={this.state.sequencers}
           changeSequencer={this.changeSequencer}
-          startStop={this.startStop}
-          tempo={this.state.tempo}
-          changeTempo={this.changeTempo}
           activeSequencer={this.state.activeSequencer}/>
         <SequencerControl
           style={styles.sequencerControl}
+          startStop={this.startStop}
+          tempo={this.state.tempo}
+          changeTempo={this.changeTempo}
           sequencer={this.state.activeSequencer}
           addStep={this.addStep}
           changeStepNumber={this.changeStepNumber}

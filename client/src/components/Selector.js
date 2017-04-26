@@ -6,6 +6,7 @@ const styles = {
     width: 55,
     borderRadius: 20,
     display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 5,

@@ -1,5 +1,6 @@
 import  React, { Component } from 'react';
 import Step from '../components/Step'
+import './style.css'
 
 const styles = {
   timeline: {
@@ -10,15 +11,14 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    padding: 5,
-    margin: 20
+    padding: 5
   }
 }
 
 class Timeline extends Component {
   render() {
     return (
-      <div style={styles.timeline}>
+      <div style={styles.timeline} className={'timelineSize'}>
         {
           this.props.steps.map((step, i) => (
             <Step key={i} stepNum={i} velocity={step} addStep={this.props.addStep}/>

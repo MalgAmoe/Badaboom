@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import XyPad from '../components/Xy'
 import SoundSelector from './SoundSelector'
-import TransportControl from './TransportControl'
+
 
 const styles = {
   controls: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    height: 400,
+    height: 500,
     backgroundColor: 'black',
     opacity: 1
   }
@@ -20,10 +20,6 @@ class SoundControl extends Component{
     const { changeSound, ...rest } = this.props
     return (
       <div style={styles.controls}>
-        <TransportControl
-          tempo={this.props.tempo}
-          changeTempo={this.props.changeTempo}
-          startStop={this.props.startStop}/>
         <XyPad
           changeSound={this.props.changeSound}
           x={this.props.activeSequencer.sound.x}

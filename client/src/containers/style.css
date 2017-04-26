@@ -1,0 +1,18 @@
+@media (min-width: 720px) {
+  .timelineSize {
+    margin: 40px;
+  }
+  .parametersDirection {
+    flex-direction: row;
+  }
+}
+@media (max-width: 720px) {
+  .timelineSize {
+    margin: 40px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .parametersDirection {
+    flex-direction: column;
+  }
+}

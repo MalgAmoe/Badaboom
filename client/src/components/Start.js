@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 const Styles = {
   start: {
-    height: 75,
-    width: 75,
+    height: 50,
+    width: '50%',
     borderRadius: 20,
     display: 'flex',
     justifyContent: 'center',
@@ -11,6 +11,7 @@ const Styles = {
     color: 'black',
     padding: 5,
     cursor: 'pointer',
+    margin: 20
   }
 }
 

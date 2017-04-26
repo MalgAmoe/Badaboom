@@ -4,7 +4,7 @@ import Selector from '../components/Selector'
 const styles = {
   selectorContainer: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-around',
   },
   button: {
@@ -17,7 +17,7 @@ const styles = {
     alignItems: 'center',
     color: 'white',
     padding: 5,
-    cursor: 'pointer',
+    cursor: 'pointer'
   }
 }
 

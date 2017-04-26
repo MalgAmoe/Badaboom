@@ -5,6 +5,7 @@ const styles = {
     position: 'relative',
     width: 300,
     height: 300,
+    margin: 30,
     borderRadius: 5,
     backgroundColor: 'lightblue',
     opacity: 0.9,
