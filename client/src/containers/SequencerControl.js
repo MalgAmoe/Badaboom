@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Timeline from './Timeline'
 import Start from '../components/Start'
 import Slider from '../components/Slider'
+import StepParameter from '../components/StepParameter'
 
 const styles = {
   seqContainer: {
@@ -19,6 +20,20 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center'
   },
+  sync: {
+    color: 'black',
+    cursor: 'pointer',
+    fontSize: 'x-large',
+    backgroundColor: 'grey',
+    padding: 10,
+    borderRadius: 5
+  },
+  transport: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }
 
 class SequencerControl extends Component{
@@ -31,33 +46,34 @@ class SequencerControl extends Component{
     return (
       <div style={styles.seqContainer}>
         <div style={styles.style}>
-          <Slider
-            name='Tempo'
-            max={200}
-            min={50}
-            default={this.props.tempo}
-            change={this.props.changeTempo}/>
-          <Slider
-            name='Resolution'
-            max={16}
-            min={1}
-            default={this.props.sequencer.resolution}
+          <div style={styles.transport}>
+            <Slider
+              name='BPM'
+              max={200}
+              min={50}
+              default={this.props.tempo}
+              change={this.props.changeTempo}/>
+            <Start
+              startStop={this.props.startStop}/>
+          </div>
+
+          <StepParameter
+            functionality='Resolution'
+            selected={this.props.sequencer.resolution}
             change={this.props.changeResolution}/>
-          <Slider
-            name='Steps'
-            max={16}
-            min={1}
-            default={this.props.sequencer.division}
+          <div
+            onClick={this.props.sync}
+            style={styles.sync}>Sync</div>
+          <StepParameter
+            functionality='Steps'
+            selected={this.props.sequencer.division}
             change={this.props.changeStepNumber}/>
         </div>
         <div style={styles.style}>
-          <Start
-            startStop={this.props.startStop}/>
           <Timeline
             steps={this.props.sequencer.steps.filter((step, index) => this.filterSteps(step, index))}
             addStep={this.props.addStep}/>
         </div>
-
       </div>
     )
   }

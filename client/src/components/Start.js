@@ -5,11 +5,10 @@ const Styles = {
     height: 75,
     width: 75,
     borderRadius: 20,
-    marginLeft: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'white',
+    color: 'black',
     padding: 5,
     cursor: 'pointer',
   }

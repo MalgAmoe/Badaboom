@@ -5,7 +5,7 @@ const styles = {
     margin: 25,
   },
   sliderContainer: {
-    color: 'white',
+    color: 'grey',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -31,7 +31,7 @@ class Slider extends Component{
   render() {
     return (
       <div style={styles.sliderContainer}>
-        <span>{this.props.name}: {this.state.value}</span>
+        <span>{this.state.value} {this.props.name}</span>
         <input
           style={styles.slider}
           type='range' min={this.props.min}

@@ -24,7 +24,7 @@ const styles = {
   }
 }
 
-const audioContext = new AudioContext()
+const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 let tempo = 120
 const kick = new Kick()
 const kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
@@ -69,11 +69,16 @@ class App extends Component {
 
   changeResolution = (resolution) => {
     this.state.activeSequencer.changeResolution(resolution)
+    this.setState({resolution})
+    this.state.activeSequencer.stop()
+    this.state.activeSequencer.start(audioContext)
   }
 
   changeStepNumber = (division) => {
     this.state.activeSequencer.changeDivision(division)
     this.updateSteps(this.state.activeSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
+    this.state.activeSequencer.stop()
+    this.state.activeSequencer.start(audioContext)
   }
 
   filterSteps = (step, index) => {
@@ -95,6 +100,13 @@ class App extends Component {
     })
   }
 
+  sync = () => {
+    sequencers.forEach(sequencer => {
+      sequencer.stop()
+      sequencer.start(audioContext)
+    })
+  }
+
   render() {
     return (
       <div style={styles.mainContainer}>
@@ -111,7 +123,8 @@ class App extends Component {
           changeStepNumber={this.changeStepNumber}
           changeResolution={this.changeResolution}
           tempo={this.state.tempo}
-          changeTempo={this.changeTempo}/>
+          changeTempo={this.changeTempo}
+          sync={this.sync}/>
       </div>
     )
   }

@@ -11,7 +11,8 @@ const styles = {
     padding: 5,
     cursor: 'pointer',
     margin: 10,
-    marginRight: 100
+    marginRight: 100,
+    color: 'black'
   }
 }
 
@@ -22,8 +23,7 @@ class Selector extends Component {
   render() {
     return (
       <div onClick={this.props.onClick} style={Object.assign({}, styles.selector, {
-        backgroundColor: this.props.selected ? 'white' : 'grey',
-        color: this.props.selected ? 'grey' : 'white'
+        backgroundColor: this.props.selected ? 'white' : 'grey'
       })}>{this.props.sound}</div>
     )
   }

@@ -32,7 +32,7 @@ class Hat {
     filter.connect(amp)
 
     amp.gain.value = 0
-    amp.gain.setTargetAtTime(velocity, startTime, 0.00001)
+    amp.gain.setTargetAtTime(velocity * 0.8, startTime, 0.00001)
     amp.gain.setTargetAtTime(0, endTime, duration)
 
     whiteNoise.start(startTime)

@@ -11,7 +11,7 @@ const styles = {
     justifyContent: 'space-around',
     alignItems: 'center',
     padding: 5,
-    margin: 50
+    margin: 20
   }
 }
 
