@@ -61,7 +61,6 @@ class XyPad extends Component {
         break
       case 'mousemove':
         if (this.state.touched) {
-          // console.log(e.nativeEvent);
           this.changePosition(e)
         }
         break

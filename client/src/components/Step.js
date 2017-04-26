@@ -13,9 +13,17 @@ const styles = {
 
 
 class Step extends Component {
+  state = {
+    velocity: 0
+  }
   setStep = () => {
-    this.setState({velocity: 0.7})
-    this.props.addStep(this.props.stepNum, 0.7)
+    if (this.state.velocity === 0) {
+      this.setState({velocity: 0.7})
+      this.props.addStep(this.props.stepNum, 0.7)
+    } else {
+      this.setState({velocity: 0})
+      this.props.addStep(this.props.stepNum, 0)
+    }
   }
 
   eraseStep = () => {
@@ -46,7 +54,6 @@ class Step extends Component {
     return (
       <div
         onClick={this.setStep}
-        onDoubleClick={this.eraseStep}
         style={Object.assign({}, styles.step, {opacity: this.props.velocity * 0.9 + 0.1})}></div>
     )
   }
