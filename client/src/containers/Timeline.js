@@ -16,12 +16,41 @@ const styles = {
 }
 
 class Timeline extends Component {
+  state = {
+    touching: false
+  }
+
+  touched = () => {
+    this.setState({touching: true})
+  }
+
+  moving = () => {
+    if(this.state.touching) {
+    }
+  }
+
+  up = () => {
+    this.setState({touching: false})
+  }
+
   render() {
     return (
-      <div style={styles.timeline} className={'timelineSize'}>
+      <div
+        onMouseDown={this.touched}
+        onMouseUp={this.up}
+        onMouseLeave={this.up}
+        onDragStart={this.up}
+        style={styles.timeline}
+        className={'timelineSize'}>
         {
           this.props.steps.map((step, i) => (
-            <Step key={i} stepNum={i} velocity={step} addStep={this.props.addStep}/>
+            <Step
+              key={i}
+              stepNum={i}
+              velocity={step}
+              addStep={this.props.addStep}
+              touching={this.state.touching}
+              />
           ))
         }
       </div>

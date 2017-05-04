@@ -41,7 +41,7 @@ class ParameterValue extends Component {
   render() {
     return (
       <div
-        onClick={this.changeValue}
+        onMouseDown={this.changeValue}
         style={Object.assign({}, styles.button, {
           backgroundColor: this.props.selected === this.props.value ? 'white' : 'grey'
         })}>{this.props.value}</div>

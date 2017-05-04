@@ -16,6 +16,7 @@ class Step extends Component {
   state = {
     velocity: 0
   }
+
   setStep = () => {
     if (this.state.velocity === 0) {
       this.setState({velocity: 0.7})
@@ -26,9 +27,10 @@ class Step extends Component {
     }
   }
 
-  eraseStep = () => {
-    this.setState({velocity: 0})
-    this.props.addStep(this.props.stepNum, 0)
+  moveToggle = () => {
+    if (this.props.touching) {
+      this.setStep()
+    }
   }
 
   changeVelocity = (e) => {
@@ -53,7 +55,8 @@ class Step extends Component {
   render() {
     return (
       <div
-        onClick={this.setStep}
+        onMouseDown={this.setStep}
+        onMouseOver={this.moveToggle}
         style={Object.assign({}, styles.step, {opacity: this.props.velocity * 0.9 + 0.1})}></div>
     )
   }
