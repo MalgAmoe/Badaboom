@@ -13,7 +13,6 @@ class Sequencer {
     this.sound = sound
     this.timeLag = 0
     this.calculateLag()
-    
   }
 
   setStep = (stepNum, velocity) => {
@@ -36,8 +35,11 @@ class Sequencer {
     let nextStepData = [time, velocity]
     this.nextStepTime += this.timeLag
 
-
     return nextStepData
+  }
+
+  getNextFirstStep = (audioContext) => {
+    return audioContext.currentTime + (this.division - this.currentStep) * this.timeLag
   }
 
   scheduleSteps = function(scheduleWindow, audioContext) {
