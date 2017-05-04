@@ -7,7 +7,7 @@ const styles = {
     height: 300,
     margin: 30,
     borderRadius: 5,
-    backgroundColor: 'lightblue',
+    backgroundColor: '#21A0A0',
     opacity: 0.9,
     cursor: 'pointer'
   },

@@ -24,7 +24,7 @@ class SoundControl extends Component{
     return (
       <div style={styles.controls}>
         <h1 style={styles.text}>BADABOOM</h1>
-        <p style={styles.text}>Go down, press play, push stuff and have fun!!!</p>
+        <p style={styles.text}>Go down, press play, push stuff and have fun</p>
         <XyPad
           changeSound={this.props.changeSound}
           x={this.props.activeSequencer.sound.x}

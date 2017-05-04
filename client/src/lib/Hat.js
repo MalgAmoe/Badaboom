@@ -1,5 +1,6 @@
 class Hat {
   constructor() {
+    this.name = 'Hat'
     this.bufferLength = 2561
     this.filterFrequency = 5000
     this.decay = 0.125

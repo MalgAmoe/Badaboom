@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactGA from 'react-ga'
 import SequencerControl from './containers/SequencerControl'
 import SoundControl from './containers/SoundControl'
 
@@ -25,7 +26,7 @@ const styles = {
 }
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-let tempo = 120
+let tempo = 125
 const kick = new Kick()
 const kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
 const snare = new Snare()
@@ -36,6 +37,11 @@ const sequencers = [kickSequencer, snareSequencer, hatSequencer]
 const scheduler = new Scheduler(tempo, sequencers, audioContext)
 
 class App extends Component {
+  constructor () {
+    super()
+    ReactGA.initialize('UA-98206281-1')
+    ReactGA.pageview(window.location.pathname)
+  }
 
   state = {
     tempo: tempo,

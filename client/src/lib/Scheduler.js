@@ -4,7 +4,7 @@ export default class Scheduler {
     this.audioContext = audioContext
     this.tempo = tempo
     this.scheduleInterval = 4
-    this.scheduleWindow = 0.008
+    this.scheduleWindow = 0.005
     this.sequencers = sequencers
     this.timerID = null
   }

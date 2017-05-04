@@ -1,5 +1,6 @@
 class Snare {
   constructor() {
+    this.name = 'Snare'
     this.sineFrequency = 150
     this.attack = 0.00001
     this.decay = 0.25

@@ -9,7 +9,7 @@ const styles = {
     alignItems: 'center',
     cursor: 'pointer',
     margin: 2,
-    color: 'black',
+    color: '#181F1C',
     textAlign: 'center',
     backgroundColor: 'white',
     borderRadius: 2,

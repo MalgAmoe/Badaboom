@@ -1,5 +1,6 @@
 class Kick {
   constructor() {
+    this.name = 'Kick'
     this.frequency = 50
     this.attackFrequency = 200
     this.attackTime = 0.03

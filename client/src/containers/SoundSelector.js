@@ -27,7 +27,7 @@ class SoundSelector extends Component {
       return (
         <Selector
           key={i}
-          sound={sequencer.sound.constructor.name}
+          sound={sequencer.sound.name}
           selected={sequencer === this.props.activeSequencer}
           onClick={() => this.props.changeSequencer(sequencer)}/>
       )

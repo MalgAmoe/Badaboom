@@ -8,7 +8,7 @@ const Styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'black',
+    color: 'rgba(255, 255, 255, 0.8)',
     padding: 5,
     cursor: 'pointer',
     margin: 20
@@ -18,14 +18,14 @@ const Styles = {
 class Start extends Component {
   state = {
     started: false,
-    color: 'green',
+    color: '#008148',
     action: 'Play'
   }
   toggleStartStop = () => {
     if (this.state.started) {
-      this.setState({started: false, color: 'green', action: 'Play'})
+      this.setState({started: false, color: '#008148', action: 'Play'})
     } else {
-      this.setState({started: true, color: 'red', action: 'Stop'})
+      this.setState({started: true, color: '#E53D00', action: 'Stop'})
     }
     this.props.startStop(this.state.started)
   }
