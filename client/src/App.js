@@ -40,7 +40,7 @@ class App extends Component {
   constructor () {
     super()
     ReactGA.initialize('UA-98206281-1')
-    ReactGA.pageview(window.location.pathname)
+    // ReactGA.pageview(window.location.pathname)
   }
 
   state = {
