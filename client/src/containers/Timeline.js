@@ -21,21 +21,14 @@ class Timeline extends Component {
   }
 
   touched = (e) => {
-    console.log('tooouuuuchhhh');
     this.setState({touching: true})
-    // if (e.type === 'touchstart') {
-    //   e.preventDefault()
-    // }
   }
 
   moving = (e) => {
-    // if(this.state.touching) {
-    // }
     e.preventDefault()
   }
 
   up = () => {
-    console.log('not');
     this.setState({touching: false})
   }
 

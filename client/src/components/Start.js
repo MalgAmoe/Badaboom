@@ -28,7 +28,7 @@ class Start extends Component {
     } else {
       this.setState({started: true, color: '#E53D00', action: 'Stop'})
     }
-    this.props.startStop(this.state.started)
+    this.props.startStop()
   }
 
   checkTouchOrClick = (e) => {

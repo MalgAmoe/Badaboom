@@ -1,6 +1,6 @@
 
 class Sequencer {
-  constructor(resolution, division, tempo, sound) {
+  constructor(resolution, division, tempo, sound, delay) {
     this.tempo = tempo
     this.resolution = resolution
     this.division = division
@@ -13,6 +13,7 @@ class Sequencer {
     this.sound = sound
     this.timeLag = 0
     this.calculateLag()
+    this.delaySequence = delay
   }
 
   setStep = (stepNum, velocity) => {
@@ -38,8 +39,12 @@ class Sequencer {
     return nextStepData
   }
 
-  getNextFirstStep = (audioContext) => {
-    return audioContext.currentTime + (this.division - this.currentStep) * this.timeLag
+  getLoopLength() {
+    return this.timeLag * this.division
+  }
+
+  setDelaySequence(delay) {
+    this.delaySequence = delay
   }
 
   scheduleSteps = function(scheduleWindow, audioContext) {
@@ -76,6 +81,10 @@ class Sequencer {
 
   start = (audioContext) => {
     this.nextStepTime = audioContext.currentTime
+  }
+
+  startWithDelay = (audioContext) => {
+    this.nextStepTime = audioContext.currentTime + this.delaySequence
   }
 }
 

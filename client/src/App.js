@@ -28,11 +28,11 @@ const styles = {
 const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 let tempo = 125
 const kick = new Kick()
-const kickSequencer = new Sequencer(4, 16, tempo, kick, audioContext)
+const kickSequencer = new Sequencer(4, 16, tempo, kick, 0)
 const snare = new Snare()
-const snareSequencer = new Sequencer(4, 16, tempo, snare, audioContext)
+const snareSequencer = new Sequencer(4, 16, tempo, snare, 0)
 const hat = new Hat()
-const hatSequencer = new Sequencer(4, 16, tempo, hat, audioContext)
+const hatSequencer = new Sequencer(4, 16, tempo, hat, 0)
 const sequencers = [kickSequencer, snareSequencer, hatSequencer]
 const scheduler = new Scheduler(tempo, sequencers, audioContext)
 
@@ -44,6 +44,7 @@ class App extends Component {
   }
 
   state = {
+    started: false,
     tempo: tempo,
     steps: kickSequencer.steps,
     activeSequencer: kickSequencer,
@@ -59,18 +60,20 @@ class App extends Component {
     this.setState({steps: newSteps})
   }
 
-  startStop = (started) => {
-    if (!started) {
+  startStop = () => {
+    if (!this.started) {
       scheduler.start()
       sequencers.forEach(sequencer => {
-        sequencer.start(audioContext)
+        sequencer.startWithDelay(audioContext)
       })
     } else {
+
       scheduler.stop()
       sequencers.forEach(sequencer => {
         sequencer.stop(audioContext)
       })
     }
+    this.started = !this.started
   }
 
   changeResolution = (resolution) => {
@@ -109,6 +112,7 @@ class App extends Component {
   sync = () => {
     sequencers.forEach(sequencer => {
       sequencer.stop()
+      sequencer.setDelaySequence(0)
       sequencer.start(audioContext)
     })
   }
