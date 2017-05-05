@@ -52,9 +52,25 @@ class XyPad extends Component {
     this.props.changeSound(x, y)
   }
 
+  updatePosition(pos) {
+    if (pos.nativeEvent.layerX < styles.pad.width &&
+      0 < pos.nativeEvent.layerX &&
+      0 < pos.nativeEvent.layerY &&
+      pos.nativeEvent.layerY < styles.pad.width) {
+        this.setState({left:pos.nativeEvent.layerX, top:pos.nativeEvent.layerY})
+        const x = pos.nativeEvent.layerX/styles.pad.width
+        const y = 1 - pos.nativeEvent.layerY/styles.pad.width
+        this.props.changeSound(x, y)
+       }
+  }
+
   modifySound = (e) => {
     const type = e.type
     switch (type) {
+      case 'touchstart':
+        this.updatePosition(e)
+        this.setState({touched: true})
+        break
       case 'mousedown':
         this.changePosition(e)
         this.setState({touched: true})
@@ -64,7 +80,14 @@ class XyPad extends Component {
           this.changePosition(e)
         }
         break
+      case 'touchmove':
+        if (this.state.touched) {
+          e.preventDefault()
+          this.updatePosition(e)
+        }
+        break
       default:
+      // console.log(e.type);
         this.setState({touched: false})
     }
   }
@@ -72,6 +95,8 @@ class XyPad extends Component {
   render () {
     return (
       <div style={styles.pad}
+        onTouchMove={this.modifySound}
+        onTouchStart={this.modifySound}
         onMouseDown={this.modifySound}
         onMouseUp={this.modifySound}
         onMouseLeave={this.modifySound}
