@@ -18,7 +18,9 @@ class Step extends Component {
   }
 
   setStep = (e) => {
-    e.preventDefault()
+    if (e && e.type === 'touchstart') {
+      e.preventDefault()
+    }
     if (this.state.velocity === 0) {
       this.setState({velocity: 0.7})
       this.props.addStep(this.props.stepNum, 0.7)
