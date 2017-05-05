@@ -21,6 +21,7 @@ class Start extends Component {
     color: '#008148',
     action: 'Play'
   }
+
   toggleStartStop = () => {
     if (this.state.started) {
       this.setState({started: false, color: '#008148', action: 'Play'})
@@ -29,11 +30,21 @@ class Start extends Component {
     }
     this.props.startStop(this.state.started)
   }
+
+  checkTouchOrClick = (e) => {
+    if(e.type === 'touchstart') {
+      e.preventDefault()
+      this.toggleStartStop()
+    } else if (e.type === 'mousedown') {
+      this.toggleStartStop()
+    }
+  }
+
   render() {
     return (
       <div
         style={Object.assign({}, Styles.start, {backgroundColor: this.state.color})}
-        onClick={this.toggleStartStop}
+        onMouseDown={this.checkTouchOrClick}
         >{this.state.action}</div>
     )
   }
