@@ -20,13 +20,17 @@ class Timeline extends Component {
     touching: false
   }
 
-  touched = () => {
+  touched = (e) => {
     this.setState({touching: true})
+    // if (e.type === 'touchstart') {
+    //   e.preventDefault()
+    // }
   }
 
-  moving = () => {
-    if(this.state.touching) {
-    }
+  moving = (e) => {
+    // if(this.state.touching) {
+    // }
+    e.preventDefault()
   }
 
   up = () => {
@@ -36,6 +40,7 @@ class Timeline extends Component {
   render() {
     return (
       <div
+        onTouchMove={this.moving}
         onMouseDown={this.touched}
         onMouseUp={this.up}
         onMouseLeave={this.up}

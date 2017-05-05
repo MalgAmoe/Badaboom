@@ -34,13 +34,15 @@ const styles = {
 
 class ParameterValue extends Component {
 
-  changeValue = () => {
+  changeValue = (e) => {
+    e.preventDefault()
     this.props.change(this.props.value)
   }
 
   render() {
     return (
       <div
+        onTouchStart={this.changeValue}
         onMouseDown={this.changeValue}
         style={Object.assign({}, styles.button, {
           backgroundColor: this.props.selected === this.props.value ? 'white' : 'grey'

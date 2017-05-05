@@ -45,6 +45,15 @@ class SequencerControl extends Component{
     return index < this.props.sequencer.division
   }
 
+  syncSequencers = (e) => {
+    if (e.type === 'touchstart') {
+      e.preventDefault()
+      this.props.sync()
+    } else if(e.type === 'mousedown') {
+      this.props.sync()
+    }
+  }
+
   render() {
     return (
       <div style={styles.seqContainer}>
@@ -59,7 +68,8 @@ class SequencerControl extends Component{
             selected={this.props.sequencer.division}
             change={this.props.changeStepNumber}/>
           <div
-            onClick={this.props.sync}
+            onTouchStart={this.syncSequencers}
+            onMouseDown={this.syncSequencers}
             style={styles.sync}>Synchronise</div>
           <StepParameter
             functionality='Bars'

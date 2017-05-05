@@ -17,7 +17,8 @@ class Step extends Component {
     velocity: 0
   }
 
-  setStep = () => {
+  setStep = (e) => {
+    e.preventDefault()
     if (this.state.velocity === 0) {
       this.setState({velocity: 0.7})
       this.props.addStep(this.props.stepNum, 0.7)
@@ -55,6 +56,7 @@ class Step extends Component {
   render() {
     return (
       <div
+        onTouchStart={this.setStep}
         onMouseDown={this.setStep}
         onMouseOver={this.moveToggle}
         style={Object.assign({}, styles.step, {opacity: this.props.velocity * 0.9 + 0.1})}></div>
