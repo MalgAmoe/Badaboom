@@ -27,12 +27,15 @@ const styles = {
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 let tempo = 125
+let delays = [{sequencer: 0, step: 0, delay: 0},
+              {sequencer: 1, step: 0, delay: 0},
+              {sequencer: 2, step: 0, delay: 0}]
 const kick = new Kick()
-const kickSequencer = new Sequencer(4, 16, tempo, kick, 0)
+const kickSequencer = new Sequencer(4, 16, tempo, kick)
 const snare = new Snare()
-const snareSequencer = new Sequencer(4, 16, tempo, snare, 0)
+const snareSequencer = new Sequencer(4, 16, tempo, snare)
 const hat = new Hat()
-const hatSequencer = new Sequencer(4, 16, tempo, hat, 0)
+const hatSequencer = new Sequencer(4, 16, tempo, hat)
 const sequencers = [kickSequencer, snareSequencer, hatSequencer]
 const scheduler = new Scheduler(tempo, sequencers, audioContext)
 
@@ -48,7 +51,8 @@ class App extends Component {
     tempo: tempo,
     steps: kickSequencer.steps,
     activeSequencer: kickSequencer,
-    sequencers: sequencers
+    sequencers: sequencers,
+    delays: delays
   }
 
   addStep = (step, velocity) => {
@@ -61,25 +65,28 @@ class App extends Component {
   }
 
   startStop = () => {
-    if (!this.started) {
+    if (!this.state.started) {
       scheduler.start()
-      sequencers.forEach(sequencer => {
-        sequencer.startWithDelay(audioContext)
-      })
+      for (let i = 0; i < this.state.sequencers.length; i++) {
+        this.state.sequencers[i].startWithDelay(audioContext, this.state.delays[i])
+      }
+      // sequencers.forEach(sequencer => {
+      //   sequencer.startWithDelay(audioContext)
+      // })
     } else {
-
       scheduler.stop()
       sequencers.forEach(sequencer => {
         sequencer.stop(audioContext)
       })
     }
-    this.started = !this.started
+    this.setState({started: !this.state.started})
   }
 
   changeResolution = (resolution) => {
     this.state.activeSequencer.changeResolution(resolution)
     this.setState({resolution})
     this.state.activeSequencer.stop()
+    this.calculateSequencerOffset()
     this.state.activeSequencer.start(audioContext)
   }
 
@@ -87,7 +94,29 @@ class App extends Component {
     this.state.activeSequencer.changeDivision(division)
     this.updateSteps(this.state.activeSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
     this.state.activeSequencer.stop()
+    this.calculateSequencerOffset()
     this.state.activeSequencer.start(audioContext)
+  }
+
+  calculateSequencerOffset = () => {
+    if (this.state.started) {
+      let currentTime = audioContext.currentTime
+      let newDelays = [{sequencer: 0, step: 0, delay: 0}]
+
+      if (this.state.activeSequencer === this.state.sequencers[0]) {
+        for (let i = 1; i < this.state.sequencers.length; i++) {
+          let step = this.state.sequencers[i].currentStep
+          let delay = this.state.sequencers[i].nextStepTime - currentTime
+
+          newDelays.push({sequencer: i, step: step, delay: delay})
+        }
+      } else {
+        
+      }
+
+      this.setState({delays: newDelays})
+    }
+
   }
 
   filterSteps = (step, index) => {
