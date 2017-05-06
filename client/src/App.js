@@ -70,9 +70,6 @@ class App extends Component {
       for (let i = 0; i < this.state.sequencers.length; i++) {
         this.state.sequencers[i].startWithDelay(audioContext, this.state.delays[i])
       }
-      // sequencers.forEach(sequencer => {
-      //   sequencer.startWithDelay(audioContext)
-      // })
     } else {
       scheduler.stop()
       sequencers.forEach(sequencer => {
