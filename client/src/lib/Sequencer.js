@@ -13,7 +13,6 @@ class Sequencer {
     this.sound = sound
     this.timeLag = 0
     this.calculateLag()
-    this.delaySequence = 0
   }
 
   setStep = (stepNum, velocity) => {

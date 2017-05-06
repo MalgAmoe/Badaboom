@@ -100,7 +100,7 @@ class App extends Component {
 
   calculateSequencerOffset = () => {
     if (this.state.started) {
-      let currentTime = audioContext.currentTime
+      const currentTime = audioContext.currentTime
       let newDelays = [{sequencer: 0, step: 0, delay: 0}]
 
       if (this.state.activeSequencer === this.state.sequencers[0]) {
@@ -111,12 +111,29 @@ class App extends Component {
           newDelays.push({sequencer: i, step: step, delay: delay})
         }
       } else {
-        
-      }
+        const currentStep1 = this.state.sequencers[0].currentStep
+        const nextStepTime1 = this.state.sequencers[0].nextStepTime
+        const t01 = nextStepTime1 - (currentStep1 + 1) * this.state.sequencers[0].timeLag
+        let t0n = currentTime
+        let step = this.state.activeSequencer.division
 
+        while (t0n > t01) {
+          t0n -= this.state.activeSequencer.timeLag
+          step--
+          if (step < 0) step = this.state.activeSequencer.division - 1
+        }
+        let delay = t0n - t01
+
+        for (let i = 1; i < this.state.sequencers.length; i++) {
+          if (this.state.sequencers[i] === this.state.activeSequencer) {
+            newDelays.push({sequencer: i, step: step, delay: delay})
+          } else {
+            newDelays.push(this.state.delays[i])
+          }
+        }
+      }
       this.setState({delays: newDelays})
     }
-
   }
 
   filterSteps = (step, index) => {
