@@ -27,7 +27,7 @@ const styles = {
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 let tempo = 125
-let delays = [{sequencer: 0, step: 0, delay: 0},
+let initDelays = [{sequencer: 0, step: 0, delay: 0},
               {sequencer: 1, step: 0, delay: 0},
               {sequencer: 2, step: 0, delay: 0}]
 const kick = new Kick()
@@ -52,7 +52,7 @@ class App extends Component {
     steps: kickSequencer.steps,
     activeSequencer: kickSequencer,
     sequencers: sequencers,
-    delays: delays
+    delays: initDelays
   }
 
   addStep = (step, velocity) => {
@@ -113,10 +113,9 @@ class App extends Component {
       } else {
         const currentStep1 = this.state.sequencers[0].currentStep
         const nextStepTime1 = this.state.sequencers[0].nextStepTime
-        const t01 = nextStepTime1 - (currentStep1 + 1) * this.state.sequencers[0].timeLag
+        const t01 = nextStepTime1 - (currentStep1) * this.state.sequencers[0].timeLag
         let t0n = currentTime
         let step = this.state.activeSequencer.division
-
         while (t0n > t01) {
           t0n -= this.state.activeSequencer.timeLag
           step--
@@ -156,6 +155,7 @@ class App extends Component {
   }
 
   sync = () => {
+    this.setState({delays: initDelays})
     sequencers.forEach(sequencer => {
       sequencer.stop()
       sequencer.setDelaySequence(0)
