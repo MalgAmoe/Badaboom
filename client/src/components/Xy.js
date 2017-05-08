@@ -3,8 +3,8 @@ import  React, { Component } from 'react';
 const styles = {
   pad: {
     position: 'relative',
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
     margin: 30,
     borderRadius: 5,
     backgroundColor: '#21A0A0',
