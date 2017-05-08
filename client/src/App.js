@@ -26,34 +26,52 @@ const styles = {
   }
 }
 
-const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-let tempo = 125
-let initDelays = [{sequencer: 0, step: 0, delay: 0},
-              {sequencer: 1, step: 0, delay: 0},
-              {sequencer: 2, step: 0, delay: 0}]
-const kick = new Kick()
-const kickSequencer = new Sequencer(4, 16, tempo, kick)
-const snare = new Snare()
-const snareSequencer = new Sequencer(4, 16, tempo, snare)
-const hat = new Hat()
-const hatSequencer = new Sequencer(4, 16, tempo, hat)
-const sequencers = [kickSequencer, snareSequencer, hatSequencer]
-const scheduler = new Scheduler(tempo, sequencers, audioContext)
 
 class App extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     ReactGA.initialize('UA-98206281-1')
     // ReactGA.pageview(window.location.pathname)
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
+    this.initDelays = [{sequencer: 0, step: 0, delay: 0},
+                  {sequencer: 1, step: 0, delay: 0},
+                  {sequencer: 2, step: 0, delay: 0}]
+    this.tempo = 125
+    this.kick = new Kick()
+    this.kickSequencer = new Sequencer(4, 16, this.tempo, this.kick)
+    this.snare = new Snare()
+    this.snareSequencer = new Sequencer(4, 16, this.tempo, this.snare)
+    this.hat = new Hat()
+    this.hatSequencer = new Sequencer(4, 16, this.tempo, this.hat)
+    this.sequencers = [this.kickSequencer, this.snareSequencer, this.hatSequencer]
+    this.scheduler = new Scheduler(this.tempo, this.sequencers, this.audioContext)
+    this.state = {
+      started: false,
+      tempo: this.tempo,
+      steps: this.kickSequencer.steps,
+      activeSequencer: this.kickSequencer,
+      sequencers: this.sequencers,
+      delays: this.initDelays
+    }
   }
 
-  state = {
-    started: false,
-    tempo: tempo,
-    steps: kickSequencer.steps,
-    activeSequencer: kickSequencer,
-    sequencers: sequencers,
-    delays: initDelays
+  componentDidMount() {
+    const search = this.props.location.search
+    const params = new URLSearchParams(search)
+    console.log(params.get('kx'));
+    if(this.isEmpty(this.props.match.params)) {
+      console.log('no props');
+    } else {
+      console.log(this.props.match.params);
+
+      this.kick.changeSound(this.props.match.params.kx, this.props.match.params.ky)
+      this.kickSequencer.changeDivision(this.props.match.params.ksteps)
+      this.kickSequencer.changeResolution(this.props.match.params.kbars)
+
+      this.setState({
+        tempo:this.props.match.params.tempo,
+      })
+    }
   }
 
   addStep = (step, velocity) => {
@@ -67,14 +85,14 @@ class App extends Component {
 
   startStop = () => {
     if (!this.state.started) {
-      scheduler.start()
+      this.scheduler.start()
       for (let i = 0; i < this.state.sequencers.length; i++) {
-        this.state.sequencers[i].startWithDelay(audioContext, this.state.delays[i])
+        this.state.sequencers[i].startWithDelay(this.audioContext, this.state.delays[i])
       }
     } else {
-      scheduler.stop()
-      sequencers.forEach(sequencer => {
-        sequencer.stop(audioContext)
+      this.scheduler.stop()
+      this.sequencers.forEach(sequencer => {
+        sequencer.stop(this.audioContext)
       })
     }
     this.setState({started: !this.state.started})
@@ -85,7 +103,7 @@ class App extends Component {
     this.setState({resolution})
     this.state.activeSequencer.stop()
     this.calculateSequencerOffset()
-    this.state.activeSequencer.start(audioContext)
+    this.state.activeSequencer.start(this.audioContext)
   }
 
   changeStepNumber = (division) => {
@@ -93,12 +111,12 @@ class App extends Component {
     this.updateSteps(this.state.activeSequencer.steps.filter((step, index) => this.filterSteps(step, index)))
     this.state.activeSequencer.stop()
     this.calculateSequencerOffset()
-    this.state.activeSequencer.start(audioContext)
+    this.state.activeSequencer.start(this.audioContext)
   }
 
   calculateSequencerOffset = () => {
     if (this.state.started) {
-      const currentTime = audioContext.currentTime
+      const currentTime = this.audioContext.currentTime
       let newDelays = [{sequencer: 0, step: 0, delay: 0}]
 
       if (this.state.activeSequencer === this.state.sequencers[0]) {
@@ -147,39 +165,46 @@ class App extends Component {
 
   changeTempo = (tempo) => {
     this.setState({tempo: tempo})
-    sequencers.forEach(sequencer => {
+    this.sequencers.forEach(sequencer => {
       sequencer.changeTempo(tempo)
     })
   }
 
   sync = () => {
-    this.setState({delays: initDelays})
-    sequencers.forEach(sequencer => {
+    this.setState({delays: this.initDelays})
+    this.sequencers.forEach(sequencer => {
       sequencer.stop()
       sequencer.setDelaySequence(0)
-      sequencer.start(audioContext)
+      sequencer.start(this.audioContext)
     })
+  }
+
+  isEmpty = (properties) => {
+    for (var key in properties) {
+      return !properties.hasOwnProperty(key)
+    }
+    return true
   }
 
   render() {
     return (
-      <div style={styles.mainContainer}>
-        <SoundControl
-          changeSound={this.changeSound}
-          sequencerList={this.state.sequencers}
-          changeSequencer={this.changeSequencer}
-          activeSequencer={this.state.activeSequencer}/>
-        <SequencerControl
-          style={styles.sequencerControl}
-          startStop={this.startStop}
-          tempo={this.state.tempo}
-          changeTempo={this.changeTempo}
-          sequencer={this.state.activeSequencer}
-          addStep={this.addStep}
-          changeStepNumber={this.changeStepNumber}
-          changeResolution={this.changeResolution}
-          sync={this.sync}/>
-      </div>
+        <div style={styles.mainContainer}>
+            <SoundControl
+              changeSound={this.changeSound}
+              sequencerList={this.state.sequencers}
+              changeSequencer={this.changeSequencer}
+              activeSequencer={this.state.activeSequencer}/>
+            <SequencerControl
+              style={styles.sequencerControl}
+              startStop={this.startStop}
+              tempo={this.state.tempo}
+              changeTempo={this.changeTempo}
+              sequencer={this.state.activeSequencer}
+              addStep={this.addStep}
+              changeStepNumber={this.changeStepNumber}
+              changeResolution={this.changeResolution}
+              sync={this.sync}/>
+        </div>
     )
   }
 }

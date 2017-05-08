@@ -11,7 +11,7 @@ import './index.css';
 ReactDOM.render(
   <Router>
     <div>
-      <Route exact path="/" component={App} />
+      <Route path="/" component={App} />
       <Route path="/:tempo/:kx/:ky/:ksteps/:kbars/" component={App} />
     </div>
   </Router>,

@@ -22,7 +22,7 @@ input[type=range]::-webkit-slider-thumb {
     width: 30px;
     border-radius: 50%;
     background: white;
-    margin-top: -10px;
+    margin-top: -12px;
 }
 input[type=range]:focus {
     outline: none;
@@ -49,7 +49,7 @@ input[type=range]::-moz-range-thumb {
 /*hide the outline behind the border*/
 input[type=range]:-moz-focusring{
     outline: 1px solid white;
-    outline-offset: -10px;
+    outline-offset: -12px;
 }
 
 input[type=range]::-ms-track {

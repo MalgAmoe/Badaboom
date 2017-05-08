@@ -26,6 +26,7 @@ class Slider extends Component{
   }
 
   changeValue = (e) => {
+    e.preventDefault()
     this.setState({value: e.target.value})
     this.props.change(e.target.value)
   }
