@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import ReactGA from 'react-ga'
 import SequencerControl from './containers/SequencerControl'
 import SoundControl from './containers/SoundControl'
