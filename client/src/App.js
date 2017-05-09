@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
-
 import ReactGA from 'react-ga'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
+import reducer from './store/reducers'
+
 import SequencerControl from './containers/SequencerControl'
 import SoundControl from './containers/SoundControl'
 
@@ -9,6 +13,11 @@ import Kick from './lib/Kick'
 import Snare from './lib/Snare'
 import Hat from './lib/Hat'
 import Scheduler from './lib/Scheduler'
+
+const queryString = require('query-string')
+
+let store = createStore(reducer)
+  console.log(store.getState());
 
 import './App.css'
 
@@ -56,9 +65,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const search = this.props.location.search
-    const params = new URLSearchParams(search)
-    console.log(params.get('kx'));
+
+    console.log(queryString.parse(location.search));
     if(this.isEmpty(this.props.match.params)) {
       console.log('no props');
     } else {
@@ -188,23 +196,25 @@ class App extends Component {
 
   render() {
     return (
+      <Provider store={store}>
         <div style={styles.mainContainer}>
-            <SoundControl
-              changeSound={this.changeSound}
-              sequencerList={this.state.sequencers}
-              changeSequencer={this.changeSequencer}
-              activeSequencer={this.state.activeSequencer}/>
-            <SequencerControl
-              style={styles.sequencerControl}
-              startStop={this.startStop}
-              tempo={this.state.tempo}
-              changeTempo={this.changeTempo}
-              sequencer={this.state.activeSequencer}
-              addStep={this.addStep}
-              changeStepNumber={this.changeStepNumber}
-              changeResolution={this.changeResolution}
-              sync={this.sync}/>
+          <SoundControl
+            changeSound={this.changeSound}
+            sequencerList={this.state.sequencers}
+            changeSequencer={this.changeSequencer}
+            activeSequencer={this.state.activeSequencer}/>
+          <SequencerControl
+            style={styles.sequencerControl}
+            startStop={this.startStop}
+            tempo={this.state.tempo}
+            changeTempo={this.changeTempo}
+            sequencer={this.state.activeSequencer}
+            addStep={this.addStep}
+            changeStepNumber={this.changeStepNumber}
+            changeResolution={this.changeResolution}
+            sync={this.sync}/>
         </div>
+      </Provider>
     )
   }
 }
