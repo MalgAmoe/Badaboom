@@ -29,7 +29,7 @@ class SoundSelector extends Component {
           key={i}
           sound={sequencer.sound.name}
           selected={sequencer === this.props.activeSequencer}
-          onClick={() => this.props.changeSequencer(sequencer)}/>
+          onClick={() => this.props.changeSequencer(i)}/>
       )
     })
   }
