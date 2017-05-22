@@ -8,13 +8,13 @@ Having a simple interface for rapidly creating intricate rhythms.
 
 ## Components
 
-1. Sequencer
+### Sequencer
 
 3 custom sequencers have separated controls for the division of the loop in steps and the length of the loop in bars.
 When changing those parameters the sequencer selected is retriggered, this way it is possible to easily achieve a human groove.
 A sync button is provided in case things get out of hand.
 
-2. Sound
+### Sound
 
 3 synthesis engine provide the sound for each sequencer, the alteration of those sounds is made with a XY pad to easily vary between usable sounds.
 
