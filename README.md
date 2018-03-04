@@ -1,7 +1,7 @@
 # Badaboom
 A Web Drum Machine allowing polyrhythms of synthesized sounds.
 
-This is the code of the alpha version, a new version is in development and can be tested at http://badaboom.flexyvoid.com/sound
+This is the code of the alpha version, a new version is in development and can be tested at http://badaboom.surge.sh/
 
 ## Idea
 Having a simple interface for rapidly creating intricate rhythms.
